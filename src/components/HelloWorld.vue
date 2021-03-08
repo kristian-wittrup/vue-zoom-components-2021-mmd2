@@ -1,43 +1,38 @@
 <template>
   <v-container>
-    <!--
-    <div>
+     <!-- Grabbing dynamic data from the variable "hello", the data object -->
+    <div class="pa-4">
       <p>{{ hello }}</p>
-      <button @click="changeContent()">
+      <v-btn dark @click="changeContent()"> <!-- invoking/calling the function(method) called changeContent -->
         Click me
-      </button>
+      </v-btn>
     </div>
-    -->
-    <!-- Toggle basic : This will toggle all with same v-if 
-    <div v-if="showContent">
+    <hr>
+    <!-- Toggle basic : This will toggle all with same v-if -->
+    <div class="pa-4" v-if="showContent"> <!-- show/hide if its true/falase -->
       <p> {{ title }} </p>
-
     </div>
-    <div v-if="showContent">
+    <div class="pa-4" v-if="showContent">
       <p> {{ titleTwo }} </p>
-
     </div>
-    -->
-    <!--
-    <button @click="toogleContent">
+    <v-btn class="red mb-4" @click="toogleContent"> <!-- Toogle state(true/false) of toogleContent through the method called toogleContent -->
       Show/hide content
-    </button>-->
+    </v-btn>
+    <hr>
 
     
 
-<!-- Toggle Individual item start -->
-
-    <div v-for="item in memesLib" :key="item.index">
-      <div v-show="item.toogleInd">
-        <p>{{ item.memeTitle }}</p>
-        <img :src="item.imgStuff" alt="" height=200>
-        <button @click="toggleInd(item)">Click</button>
-      </div>
-      <div v-if="!item.toogleInd">
-        MNeeee
-      </div>
+<!-- Toggle Individual item :: start -->
+  <div class="mt-4" v-for="item in memesLib" :key="item.id"  >  <!-- For Loop to print item, and have an uniq identifier to toogle false/true -->
+    <div v-show="item.toggleInd"> <!-- Show or hide element based of toggleInd is either true or false -->
+      <h4>{{ item.memesTitle }}</h4> 
+      <img :src="item.memesImg" height=200 alt="">
+      <v-btn class="red" @click="toggleInd(item)">Hide single item</v-btn> <!-- toggleInd() method called on click : we are passing along the entire "item" so the method knows which one is clicked. (placement in array: position 0, or 1, or 2, etc) -->
     </div>
-
+    <div v-if="!item.toggleInd"> <!-- Show or hide element based of toggleInd is either true or false -->
+      <v-btn class="green" @click="toggleInd(item)">Show single item</v-btn> <!-- Button to toggle back -->
+    </div>  
+  </div>
 
 
 
@@ -49,26 +44,24 @@
     name: 'HelloWorld',
 
     data: () => ({
-/* 
+
       hello: "Say hello to Homer",
       title : "Show me da money",
       titleTwo : "Im freeee",
-      showContent: true
-*/      
-    
-    memesLib: [
-      {
-        memeTitle : "Show me the cat",
-        imgStuff: require('../assets/vibe.gif'),
-        toogleInd: false
-      },
-      {
-        memeTitle : "Show me the dog",
-        imgStuff: require('../assets/dogcar.gif'),
-        toogleInd: true
-      },
+      showContent: true, // used to hide or show an HTML element
       
-    ]
+    memesLib: [  // 3.2
+        {
+          memesTitle: 'Vibe cat', // 3.2 
+          memesImg: require('../assets/vibe.gif'), // 3.2,   // Show in vueExtension without the required.
+          toggleInd: true // 3.3 toggle indivual
+        },
+        {
+          memesTitle: 'Dog in Car', // 3.2
+          memesImg: require('../assets/dogcar.gif'), // 3.2
+          toggleInd: true // 3.3 toggle indivual,
+        }
+      ],
 
     }),
     methods: {
